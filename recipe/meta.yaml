@@ -21,14 +21,16 @@ build:
 
 requirements:
   host:
-    - python
+    - python >=3.6
     - pip
+    - setuptools
+    - wheel
 
   run:
-    - python
-    - cryptography
-    - pyjwt >=1.0.0
-    - blinker
+    - python >=3.6
+    - cryptography >=3.0.0,<4
+    - pyjwt >=2.0.0,<3
+    - blinker >=1.4.0
 
 test:
   imports:
@@ -41,11 +43,15 @@ test:
     - oauthlib.oauth2.rfc6749.clients
     - oauthlib.oauth2.rfc6749.endpoints
     - oauthlib.oauth2.rfc6749.grant_types
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/idan/oauthlib
   license_file: LICENSE
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_family: BSD
   summary: 'A generic, spec-compliant, thorough implementation of the OAuth request-signing logic'
   dev_url: https://github.com/idan/oauthlib
