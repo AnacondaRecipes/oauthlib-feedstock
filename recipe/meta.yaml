@@ -28,7 +28,7 @@ requirements:
 
   run:
     - python >=3.6
-    - cryptography >=3.0.0,<4
+    - cryptography >=3.0.0
     - pyjwt >=2.0.0,<3
     - blinker >=1.4.0
 
