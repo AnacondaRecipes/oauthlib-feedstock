@@ -1,8 +1,8 @@
 {% set name = "oauthlib" %}
-{% set version = "3.1.1" %}
+{% set version = "3.2.0" %}
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash = "8f0215fcc533dd8dd1bee6f4c412d4f0cd7297307d43ac61666389e3bc3198a3" %}
+{% set hash = "23a8208d75b902797ea29fd31fa80a15ed9dc2c6c16fe73f5d346f83f6fa27a2" %}
 {% set build = 0 %}
 
 package:
@@ -21,14 +21,14 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
     - setuptools
     - wheel
 
   run:
     - python >=3.6
-    - cryptography >=3.0.0,<4
+    - cryptography >=3.0.0
     - pyjwt >=2.0.0,<3
     - blinker >=1.4.0
 
