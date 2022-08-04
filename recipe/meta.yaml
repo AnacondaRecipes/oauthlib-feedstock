@@ -14,8 +14,8 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
+  noarch: python
   number: 1
-  skip: True # [py<36]
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
@@ -25,7 +25,7 @@ requirements:
     - setuptools
     - wheel
   run:
-    - python
+    - python >=3.6
     - cryptography >=3.0.0
     - pyjwt >=2.0.0,<3
     - blinker >=1.4.0
@@ -57,7 +57,7 @@ about:
   license_family: BSD
   summary: A generic, spec-compliant, thorough implementation of the OAuth request-signing logic
   dev_url: https://github.com/oauthlib/oauthlib
-  doc_url: https://oauthlib.readthedocs.io
+  doc_url: https://oauthlib.readthedocs.io/en/latest/
 
 extra:
   recipe-maintainers:
