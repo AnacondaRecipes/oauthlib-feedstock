@@ -3,7 +3,6 @@
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
 {% set hash = "23a8208d75b902797ea29fd31fa80a15ed9dc2c6c16fe73f5d346f83f6fa27a2" %}
-{% set build = 0 %}
 
 package:
   name: {{ name|lower }}
@@ -16,7 +15,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
@@ -25,7 +24,6 @@ requirements:
     - pip
     - setuptools
     - wheel
-
   run:
     - python >=3.6
     - cryptography >=3.0.0
@@ -45,17 +43,21 @@ test:
     - oauthlib.oauth2.rfc6749.grant_types
   requires:
     - pip
+    - pytest >=4.0
+  source_files:
+    - tests/
   commands:
     - pip check
+    - pytest tests/
 
 about:
-  home: https://github.com/idan/oauthlib
+  home: https://github.com/oauthlib/oauthlib
   license_file: LICENSE
   license: BSD-3-Clause
   license_family: BSD
-  summary: 'A generic, spec-compliant, thorough implementation of the OAuth request-signing logic'
-  dev_url: https://github.com/idan/oauthlib
-  doc_url: https://oauthlib.readthedocs.io
+  summary: A generic, spec-compliant, thorough implementation of the OAuth request-signing logic
+  dev_url: https://github.com/oauthlib/oauthlib
+  doc_url: https://oauthlib.readthedocs.io/en/latest/
 
 extra:
   recipe-maintainers:
