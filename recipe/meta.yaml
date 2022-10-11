@@ -1,8 +1,8 @@
 {% set name = "oauthlib" %}
-{% set version = "3.2.0" %}
+{% set version = "3.2.1" %}
 {% set compress_type = "tar.gz" %}
 {% set hash_type = "sha256" %}
-{% set hash = "23a8208d75b902797ea29fd31fa80a15ed9dc2c6c16fe73f5d346f83f6fa27a2" %}
+{% set hash = "1565237372795bf6ee3e5aba5e2a85bd5a65d0e2aa5c628b9a97b7d7a0da3721" %}
 
 package:
   name: {{ name|lower }}
@@ -14,9 +14,9 @@ source:
   {{ hash_type }}: {{ hash }}
 
 build:
-  noarch: python
-  number: 1
-  script: python -m pip install --no-deps --ignore-installed .
+  number: 0
+  skip: True  # [py<36]
+  script: python -m pip install --no-deps --ignore-installed . -vv
 
 requirements:
   host:
@@ -25,7 +25,7 @@ requirements:
     - setuptools
     - wheel
   run:
-    - python >=3.6
+    - python
     - cryptography >=3.0.0
     - pyjwt >=2.0.0,<3
     - blinker >=1.4.0
@@ -55,6 +55,7 @@ about:
   license_file: LICENSE
   license: BSD-3-Clause
   license_family: BSD
+  license_url: https://github.com/oauthlib/oauthlib/blob/master/LICENSE
   summary: A generic, spec-compliant, thorough implementation of the OAuth request-signing logic
   dev_url: https://github.com/oauthlib/oauthlib
   doc_url: https://oauthlib.readthedocs.io/en/latest/
