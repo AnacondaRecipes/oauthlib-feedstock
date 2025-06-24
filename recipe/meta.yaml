@@ -1,18 +1,18 @@
 {% set name = "oauthlib" %}
-{% set version = "3.2.2" %}
+{% set version = "3.3.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: "9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918"
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 0f0f8aa759826a193cf66c12ea1af1637f87b9b4622d46e866952bb022e538c9
 
 build:
   number: 0
-  skip: True  # [py<36]
-  script: python -m pip install --no-deps --ignore-installed . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<38]
 
 requirements:
   host:
@@ -22,29 +22,52 @@ requirements:
     - wheel
   run:
     - python
+  run_constrained:
+    # Extra: rsa
     - cryptography >=3.0.0
-    - pyjwt >=2.0.0,<3
+    # Extra: signals
     - blinker >=1.4.0
+    # Extra: signedtoken
+    - pyjwt >=2.0.0,<3
 
 test:
+  source_files:
+    - tests
   imports:
     - oauthlib
-    - oauthlib.oauth1
-    - oauthlib.oauth1.rfc5849
-    - oauthlib.oauth1.rfc5849.endpoints
+    - oauthlib.common
     - oauthlib.oauth2
     - oauthlib.oauth2.rfc6749
-    - oauthlib.oauth2.rfc6749.clients
     - oauthlib.oauth2.rfc6749.endpoints
+    - oauthlib.oauth2.rfc6749.endpoints.base
+    - oauthlib.oauth2.rfc6749.errors
     - oauthlib.oauth2.rfc6749.grant_types
+    - oauthlib.oauth2.rfc6749.grant_types.authorization_code
+    - oauthlib.oauth2.rfc6749.grant_types.base
+    - oauthlib.oauth2.rfc6749.grant_types.implicit
+    - oauthlib.oauth2.rfc6749.grant_types.refresh_token
+    - oauthlib.oauth2.rfc6749.parameters
+    - oauthlib.oauth2.rfc6749.request_validator
+    - oauthlib.oauth2.rfc6749.tokens
+    - oauthlib.oauth2.rfc6749.utils
+    - oauthlib.oauth2.rfc8628.endpoints
+    - oauthlib.oauth2.rfc8628.endpoints.device_authorization
+    - oauthlib.oauth2.rfc8628.errors
+    - oauthlib.oauth2.rfc8628.grant_types
+    - oauthlib.oauth2.rfc8628.grant_types.device_code
+    - oauthlib.openid.connect.core.request_validator
+    - oauthlib.signals
+    - oauthlib.uri_validate
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
   requires:
     - pip
     - pytest >=4.0
-  source_files:
-    - tests/
-  commands:
-    - pip check
-    - pytest tests/
+    - cryptography >=3.0.0
+    - blinker >=1.4.0
+    - pyjwt >=2.0.0,<3
 
 about:
   home: https://github.com/oauthlib/oauthlib
@@ -57,7 +80,7 @@ about:
     allows users to grant third-party access to their resources without sharing their credentials. It is commonly used in 
     web applications and APIs to enable authorization and authentication.
   dev_url: https://github.com/oauthlib/oauthlib
-  doc_url: https://oauthlib.readthedocs.io/en/latest/
+  doc_url: https://oauthlib.readthedocs.io
 
 extra:
   recipe-maintainers:
